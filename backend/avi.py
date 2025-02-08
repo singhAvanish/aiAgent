@@ -6,21 +6,24 @@ from flask_cors import CORS
 import groclake
 from groclake.modellake import ModelLake
 from flask_cors import CORS
-
+from dotenv import load_dotenv
+load_dotenv()
 # Initialize Flask app
 app = Flask(__name__)
+
 
 CORS(app, resources={r"/*": {"origins": "*"}})  # Allow all origins
 
 # Environment variable setup
-GROCLAKE_API_KEY = 'a5bfc9e07964f8dddeb95fc584cd965d'
-GROCLAKE_ACCOUNT_ID = 'a0eaf635e9a80b45b89fcaa4231c725c'
+GROCLAKE_API_KEY = os.getenv("GROCLAKE_API_KEY")
+GROCLAKE_ACCOUNT_ID = os.getenv("GROCLAKE_ACCOUNT_ID")
 
 os.environ['GROCLAKE_API_KEY'] = GROCLAKE_API_KEY
 os.environ['GROCLAKE_ACCOUNT_ID'] = GROCLAKE_ACCOUNT_ID
 
 # Initialize ModelLake
 model_lake = ModelLake()
+print(f"API Key: {GROCLAKE_API_KEY}")  # Test if it's loading correctly
 
 class CyberSecurityAgent:
     def __init__(self):
